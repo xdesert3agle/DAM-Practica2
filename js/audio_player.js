@@ -19,10 +19,6 @@ function init_AudioPlayer() {
     loadTrack(0);
 }
 
-function onAudioLoadSource(){
-    track_dl.href = audio_source.src;
-}
-
 function loadTrack(song){
     audio_source.src = playlist[song];
     audio_player.load();
@@ -147,6 +143,10 @@ function onAudioMuteClick() {
 
 function onAudioVolumeChange(){
     audio_player.volume = audioVolumeBar.value;
+}
+
+function onAudioLoadSource(){
+    track_dl.href = audio_source.src;
 }
 
 function isPausedAudio(){

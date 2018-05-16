@@ -9,20 +9,14 @@ function init_VideoPlayer() {
     videoTimeBar = document.getElementById('videoTimeBar');
     video_dl = document.getElementById('video_dl');
 
-    console.log("Vídeos disponibles:");
     // Llenamos el array 'video_playlist' con los vídeos del <select>
     for (var j = 0; j < video_catalog.length; j++){
         video_playlist[j] = video_catalog.options[j].getAttribute('data-value');
-        console.log(video_playlist[j]);
     }
     
-    // Se precarga la primera canción
+    // Se precarga el primer video
     currentVideo = 0;
     loadVideo(0);
-}
-
-function onVideoLoadSource(){
-    video_dl.href = video_source.src;
 }
 
 function loadVideo(video){
@@ -36,9 +30,9 @@ function onVideoSelect(){
 
     videoTimeBar.value = 0;
 
-    source.src = video_catalog.getAttribute('data-value');
+    video_source.src = selectedVideo.getAttribute('data-value');
 
-    currentVideo = video_catalog.value;
+    currentVideo = selectedVideo.value;
     
     video_player.load();
     video_player.play();
@@ -55,14 +49,6 @@ function updateVideoCurrentTime() {
 function updateVideoTotalTime() {
     var totalTime = document.getElementById('totalVideoTime');
     totalTime.innerHTML = " / " + formatTime(video_player.duration);
-}
-
-function onVideoPlayingTimePassed() {
-    videoTimeBar.value = (100 / video_player.duration) * video_player.currentTime;
-}
-
-function onVideoTimeChange() {
-    video_player.currentTime = video_player.duration * (videoTimeBar.value / 100);
 }
 
 function onVideoTimeBarMouseDown() {
@@ -91,13 +77,15 @@ function onVideoVolumeChange(){
     video_player.volume = videoVolumeBar.value;
 }
 
-function onFullscreenPressed(){
-    if (video_player.requestFullscreen) {
-        video_player.requestFullscreen();
-    } else if (video_player.mozRequestFullScreen) {
-        video_player.mozRequestFullScreen(); // Firefox
-    } else if (video_player.webkitRequestFullscreen) {
-        video_player.webkitRequestFullscreen(); // Chrome and Safari
+function onVideoMuteClick() {
+    if (!video_player.muted) {
+        video_player.muted = true;
+        btnVideoMute.src = "video/controls/mute.png";
+        console.log("muted");
+    } else {
+        video_player.muted = false;
+        btnVideoMute.src = "video/controls/speaker.png";
+        console.log("unmuted");
     }
 }
 
@@ -137,6 +125,28 @@ function onNextVideoPressed(){
     }
 
     updateVideoCurrentTime();
+}
+
+function onFullscreenPressed(){
+    if (video_player.requestFullscreen) {
+        video_player.requestFullscreen();
+    } else if (video_player.mozRequestFullScreen) {
+        video_player.mozRequestFullScreen(); // Firefox
+    } else if (video_player.webkitRequestFullscreen) {
+        video_player.webkitRequestFullscreen(); // Chrome and Safari
+    }
+}
+
+function onVideoPlayingTimePassed() {
+    videoTimeBar.value = (100 / video_player.duration) * video_player.currentTime;
+}
+
+function onVideoTimeChange() {
+    video_player.currentTime = video_player.duration * (videoTimeBar.value / 100);
+}
+
+function onVideoLoadSource(){
+    video_dl.href = video_source.src;
 }
 
 function isPausedVideo(){

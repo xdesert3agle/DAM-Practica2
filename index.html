@@ -109,7 +109,7 @@
                 <div class="video_player">
                     <table>
                         <tr>
-                            <td colspan="8">
+                            <td colspan="7">
                                 <video id="video_player" class="video_frame" onTimeUpdate="onVideoPlayingTimePassed(); updateVideoCurrentTime();" onEnded="onVideoEnded();" onLoadedData="updateVideoTotalTime(); onVideoLoadSource();" onClick="onVideoPlayPausePressed();" onDblClick="onFullscreenPressed();">
                                     <source id="video_source" onChange="onVideoChangeSource();" />
                                     Tu navegador no soporta el formato de los vídeos.
@@ -117,6 +117,11 @@
                                     <a href="" id="video_dl" download>Descargar</a>
                                 </video>
                                 <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="7">
+                                <input type="range" id="videoTimeBar" value="0" onChange="onVideoTimeChange();" onMouseDown="onVideoTimeBarMouseDown();" onMouseUp="onVideoTimeBarMouseUp();">
                             </td>
                         </tr>
                         <tr>
@@ -133,10 +138,7 @@
                                 <p style="display: inline;"><span id="currentVideoTime">00:00</span><span id="totalVideoTime"> / 00:00</span></p>
                             </td>
                             <td>
-                                <input type="range" id="videoTimeBar" value="0" onChange="onVideoTimeChange();" onMouseDown="onVideoTimeBarMouseDown();" onMouseUp="onVideoTimeBarMouseUp();">
-                            </td>
-                            <td>
-                                <img src="video/controls/speaker.png" id="btnVideoMuteAudio" alt="Mute button" onClick="onVideoMuteClick();"/>
+                                <img src="video/controls/speaker.png" id="btnVideoMute" alt="Mute button" onClick="onVideoMuteClick();"/>
                             </td>
                             <td>
                                 <input type="range" class="video_volumeControl" id="videoVolumeBar" value="1" min="0" max="1" step="0.05" onChange="onVideoVolumeChange();">

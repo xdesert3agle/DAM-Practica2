@@ -250,6 +250,10 @@ p{
 	border: 1px solid black;
 }
 
+.audio_player table tr td p {
+	font-size: 12pt;
+}
+
 .audio_volumeControl {
 	width: 75px;
 }
@@ -265,7 +269,7 @@ p{
 	padding: 0;
 }
 
-/* AUDIO PLAYER STLYE */
+/* VIDEO PLAYER STLYE */
 .video_player tr td{
 	padding: 0px 10px 0px 10px;
 	text-align: center!important;
@@ -273,13 +277,23 @@ p{
 
 .video_player table {
 	background-color: #1c478e;
-	border-radius: 10px;
-	border: 1px solid black;
+	border-radius: 7px;
 }
 
 .video_player video {
 	width: 100%;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
+}
+
+.video_player #videoTimeBar {
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 auto;
+	margin-bottom: 5px;
+}
+
+.video_player table tr td p {
+	font-size: 12pt;
 }
 
 .video_volumeControl {
