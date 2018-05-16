@@ -241,28 +241,53 @@ p{
 
 /* EXTRA */
 
-.audio-player tr td{
+/* AUDIO PLAYER STLYE */
+.audio_player tr td{
 	padding: 0px 10px 0px 10px;
 }
 
-.audio-player table {
+.audio_player table {
 	background-color: #1c478e;
 	border-radius: 10px;
 	border: 1px solid black;
 }
 
-.volume-control {
+.audio_volumeControl {
 	width: 75px;
 }
 
-.playlist td{
+.audio_playlist td{
 	padding: 0;
 	margin: 0;
-
-
 }
 
-.playlist input {
+.audio_playlist input {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+/* AUDIO PLAYER STLYE */
+.video_player tr td{
+	padding: 0px 10px 0px 10px;
+}
+
+.video_player table {
+	background-color: #1c478e;
+	border-radius: 10px;
+	border: 1px solid black;
+}
+
+.video_volumeControl {
+	width: 75px;
+}
+
+.video_playlist td{
+	padding: 0;
+	margin: 0;
+}
+
+.video_playlist input {
 	text-align: center;
 	margin: 0;
 	padding: 0;

@@ -8,7 +8,7 @@
     <script src="js/video_player.js" type="text/javascript"></script>
     <title>Inicio · Practica 2 Diseño de Aplicaciones Multimedia HTML5</title>
 </head>
-<body onLoad="init();">
+<body onLoad="initAudioPlayer();">
     <div id="container">
         <div id="header">
             <h1><span class="blue-text">Diseño</span> de aplicaciones multimedia</h1>
@@ -36,7 +36,7 @@
             <div id="apartado1" class="content">
                 <h2>Apartado 1</h2>
                 <h3>Audio</h3>
-                <table class="playlist">
+                <table class="audio_playlist">
                     <tr>
                         <td>
                             <label for="tracklist"><strong>Canciones</strong></label> <br>
@@ -55,34 +55,74 @@
                     </tr>
                 </table>
 
-                <audio id="audio_player" onTimeUpdate="onPlayingTimePassed(); updateCurrentTime();" onEnded="onSongEnded();" onLoadedData="updateTotalTime();">
-                    <source id="audio_source" onChange="onChangeSource();" />
+                <audio id="audio_player" onTimeUpdate="onAudioPlayingTimePassed(); updateAudioCurrentTime();" onEnded="onSongEnded();" onLoadedData="updateAudioTotalTime();">
+                    <source id="audio_source" onChange="onAudioChangeSource();" />
                     Tu navegador no soporta el formato de las canciones.
                     Puedes descargar la canción aquí:
                 </audio>
                 
                 <a href="" id="track_dl">Descargar</a>
 
-                <div class="audio-player">
+                <div class="audio_player">
                     <table>
                         <tr>
                             <td>
                                 <img src="audio/controls/back.png" id="btnPrevTrack" alt="Play/Pause button" onClick="onPrevTrackPressed();"/>
                             </td>
                             <td>
-                                <img src="audio/controls/play.png" id="btnPlayPause" alt="Play/Pause button" onClick="onPlayPausePressed();"/>
+                                <img src="audio/controls/play.png" id="btnPlayPauseAudio" alt="Play/Pause button" onClick="onAudioPlayPausePressed();"/>
                             </td>
                             <td>
                                 <img src="audio/controls/next.png" id="btnNextTrack" alt="Play/Pause button" onClick="onNextTrackPressed();"/>
                             </td>
                             <td>
+                                <p style="display: inline;"><span id="currentAudioTime">00:00</span><span id="totalAudioTime"> / 00:00</span></p>
+                            </td>
+                            <td>
+                                <input type="range" id="audioTimeBar" value="0" onChange="onAudioTimeChange();" onMouseDown="onAudioTimeBarMouseDown();" onMouseUp="onAudioTimeBarMouseUp();">
+                            </td>
+                            <td>
+                                <img src="audio/controls/speaker.png" id="btnMuteAudio" alt="Mute button" onClick="onAudioMuteClick();"/>
+                            </td>
+                            <td>
+                                <input type="range" class="audio_volumeControl" id="audioVolumeBar" value="1" min="0" max="1" step="0.05" onChange="onAudioVolumeChange();">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="apartado2" class="content">
+                <h2>Apartado 2</h2>
+                <h3>Video</h3>
+                <div class="video_player">
+                    <table>
+                        <tr>
+                            <td>
+                                <video id="video_player" onTimeUpdate="onPlayingTimePassed(); updateCurrentTime();" onEnded="onSongEnded();" onLoadedData="updateTotalTime();">
+                                    <source id="video_source" onChange="onChangeSource();" />
+                                    Tu navegador no soporta el formato de las canciones.
+                                    Puedes descargar la canción aquí:
+                                </video>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="video/controls/back.png" id="btnPrevTrack" alt="Play/Pause button" onClick="onPrevTrackPressed();"/>
+                            </td>
+                            <td>
+                                <img src="video/controls/play.png" id="btnPlayPauseVideo" alt="Play/Pause button" onClick="onPlayPausePressed();"/>
+                            </td>
+                            <td>
+                                <img src="video/controls/next.png" id="btnNextTrack" alt="Play/Pause button" onClick="onNextTrackPressed();"/>
+                            </td>
+                            <td>
                                 <p style="display: inline;"><span id="currentTime">00:00</span><span id="totalTime"> / 00:00</span></p>
                             </td>
                             <td>
-                                <input type="range" id="audioTimeBar" value="0" onChange="onAudioTimeChange();" onMouseDown="onTimeBarMouseDown();" onMouseUp="onTimeBarMouseUp();">
+                                <input type="range" id="videoTimeBar" value="0" onChange="onAudioTimeChange();" onMouseDown="onTimeBarMouseDown();" onMouseUp="onTimeBarMouseUp();">
                             </td>
                             <td>
-                                <img src="audio/controls/speaker.png" id="btnMuteAudio" alt="Mute button" onClick="onMuteClick();"/>
+                                <img src="video/controls/speaker.png" id="btnMuteAudio" alt="Mute button" onClick="onMuteClick();"/>
                             </td>
                             <td>
                                 <input type="range" class="volume-control" id="audioVolumeBar" value="1" min="0" max="1" step="0.05" onChange="onAudioVolumeChange();">
@@ -90,26 +130,6 @@
                         </tr>
                     </table>
                 </div>
-                <!-- Controles -->
-                
-                
-                
-                
-                <!-- Timestamp -->
-                
-
-                <!-- Línea de tiempo -->
-                
-                
-                <!-- Control de volumen -->
-                
-                
-                
-            </div>
-            <div id="apartado2" class="content">
-                <h2>Apartado 2</h2>
-                <h3>Video</h3>
-                <p></p>
             </div>
             <div id="apartado3" class="content">
                 <h2>Apartado 3</h2>
