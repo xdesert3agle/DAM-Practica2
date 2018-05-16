@@ -184,9 +184,7 @@ p{
 }
 
 #leftmenu ul li a:hover{
-	color:#87BCF8;
-	
-	
+	color:#87BCF8;	
 }
 
 
@@ -276,6 +274,10 @@ p{
 	background-color: #1c478e;
 	border-radius: 10px;
 	border: 1px solid black;
+}
+
+.video_frame {
+	margin: 0 auto;
 }
 
 .video_volumeControl {

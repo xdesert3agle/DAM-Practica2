@@ -38,8 +38,6 @@ function onTrackSelect(){
 
     source.src = selectedSong.getAttribute('data-value');
 
-    console.log("hola");
-
     currentSong = selectedSong.value;
     
     player.load();
