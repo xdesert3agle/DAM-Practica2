@@ -8,7 +8,7 @@
     <script src="js/video_player.js" type="text/javascript"></script>
     <title>Inicio · Practica 2 Diseño de Aplicaciones Multimedia HTML5</title>
 </head>
-<body onLoad="initAudioPlayer(); initVideoPlayer();">
+<body onLoad="init_AudioPlayer(); init_VideoPlayer();">
     <div id="container">
         <div id="header">
             <h1><span class="blue-text">Diseño</span> de aplicaciones multimedia</h1>
@@ -55,13 +55,12 @@
                     </tr>
                 </table>
 
-                <audio id="audio_player" onTimeUpdate="onAudioPlayingTimePassed(); updateAudioCurrentTime();" onEnded="onSongEnded();" onLoadedData="updateAudioTotalTime();">
+                <audio id="audio_player" onTimeUpdate="onAudioPlayingTimePassed(); updateAudioCurrentTime();" onEnded="onSongEnded();" onLoadedData="updateAudioTotalTime(); onAudioLoadSource();">
                     <source id="audio_source" onChange="onAudioChangeSource();" />
                     Tu navegador no soporta el formato de las canciones.
                     Puedes descargar la canción aquí:
+                    <a href="" id="track_dl" download>Descargar</a>
                 </audio>
-                
-                <a href="" id="track_dl">Descargar</a>
 
                 <div class="audio_player">
                     <table>
@@ -110,14 +109,14 @@
                 <div class="video_player">
                     <table>
                         <tr>
-                            <td colspan="7">
-                                <video id="video_player" class="video_frame" onTimeUpdate="onVideoPlayingTimePassed(); updateVideoCurrentTime();" onEnded="onVideoEnded();" onLoadedData="updateVideoTotalTime();">
+                            <td colspan="8">
+                                <video id="video_player" class="video_frame" onTimeUpdate="onVideoPlayingTimePassed(); updateVideoCurrentTime();" onEnded="onVideoEnded();" onLoadedData="updateVideoTotalTime(); onVideoLoadSource();" onClick="onVideoPlayPausePressed();" onDblClick="onFullscreenPressed();">
                                     <source id="video_source" onChange="onVideoChangeSource();" />
                                     Tu navegador no soporta el formato de los vídeos.
                                     Puedes descargar el vídeo aquí:
+                                    <a href="" id="video_dl" download>Descargar</a>
                                 </video>
                                 <br>
-                                <a href="" id="video_dl">Descargar</a>
                             </td>
                         </tr>
                         <tr>
@@ -141,6 +140,9 @@
                             </td>
                             <td>
                                 <input type="range" class="video_volumeControl" id="videoVolumeBar" value="1" min="0" max="1" step="0.05" onChange="onVideoVolumeChange();">
+                            </td>
+                            <td>
+                                <img src="video/controls/expand.png" id="btnFullscreen" alt="Fullscreen button" onClick="onFullscreenPressed();"/>
                             </td>
                         </tr>
                     </table>

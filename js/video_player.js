@@ -1,6 +1,6 @@
 var video_player, source, video_catalog, video_playlist, btnPlayPauseVideo, videoTimeBar, currentVideo, video_dl;
 
-function initVideoPlayer() {
+function init_VideoPlayer() {
     video_player = document.getElementById('video_player');
     video_source = document.getElementById('video_source');
     video_catalog = document.getElementById('video_catalog');
@@ -19,6 +19,10 @@ function initVideoPlayer() {
     // Se precarga la primera canción
     currentVideo = 0;
     loadVideo(0);
+}
+
+function onVideoLoadSource(){
+    video_dl.href = video_source.src;
 }
 
 function loadVideo(video){
@@ -45,12 +49,12 @@ function onVideoSelect(){
 function updateVideoCurrentTime() {
     var currentTime = document.getElementById('currentVideoTime');
     
-    currentTime.innerHTML = formatTime(player.currentTime);
+    currentTime.innerHTML = formatTime(video_player.currentTime);
 }
 
 function updateVideoTotalTime() {
     var totalTime = document.getElementById('totalVideoTime');
-    totalTime.innerHTML = " / " + formatTime(player.duration);
+    totalTime.innerHTML = " / " + formatTime(video_player.duration);
 }
 
 function onVideoPlayingTimePassed() {
@@ -62,13 +66,13 @@ function onVideoTimeChange() {
 }
 
 function onVideoTimeBarMouseDown() {
-    if (!isPaused()) {
+    if (!isPausedVideo()) {
         video_player.pause();
     }
 }
 
 function onVideoTimeBarMouseUp() {
-    if (!isPaused()){ // Sólo se da al play si antes se estaba reproduciendo
+    if (!isPausedVideo()){ // Sólo se da al play si antes se estaba reproduciendo
         video_player.play();
     } 
 }
@@ -81,4 +85,60 @@ function onVideoPlayPausePressed() {
         video_player.pause();
         btnPlayPauseVideo.src = "video/controls/play.png";
     }
+}
+
+function onVideoVolumeChange(){
+    video_player.volume = videoVolumeBar.value;
+}
+
+function onFullscreenPressed(){
+    if (video_player.requestFullscreen) {
+        video_player.requestFullscreen();
+    } else if (video_player.mozRequestFullScreen) {
+        video_player.mozRequestFullScreen(); // Firefox
+    } else if (video_player.webkitRequestFullscreen) {
+        video_player.webkitRequestFullscreen(); // Chrome and Safari
+    }
+}
+
+function loadNextVideo(){
+    currentVideo = ++currentVideo < video_playlist.length ? currentVideo : 0;
+    video_source.src = video_playlist[currentVideo];
+
+    video_catalog.value = currentVideo;
+    video_catalog.focus();
+    
+    video_player.load();
+}
+
+function loadPrevVideo(){
+    currentVideo = --currentVideo > -1 ? currentVideo : video_playlist.length - 1;
+    video_source.src = video_playlist[currentVideo];
+
+    video_catalog.value = currentVideo;
+    video_catalog.focus();
+    
+    video_player.load();
+}
+
+function onPrevVideoPressed(){
+    loadPrevVideo();
+
+    if (!isPausedVideo()){
+        video_player.play();
+    }
+}
+
+function onNextVideoPressed(){
+    loadNextVideo();
+
+    if (!isPausedVideo()){
+        video_player.play();
+    }
+
+    updateVideoCurrentTime();
+}
+
+function isPausedVideo(){
+    return btnPlayPauseVideo.getAttribute('src') == "video/controls/play.png"; 
 }

@@ -268,6 +268,7 @@ p{
 /* AUDIO PLAYER STLYE */
 .video_player tr td{
 	padding: 0px 10px 0px 10px;
+	text-align: center!important;
 }
 
 .video_player table {
@@ -276,8 +277,9 @@ p{
 	border: 1px solid black;
 }
 
-.video_frame {
-	margin: 0 auto;
+.video_player video {
+	width: 100%;
+	margin-bottom: 15px;
 }
 
 .video_volumeControl {

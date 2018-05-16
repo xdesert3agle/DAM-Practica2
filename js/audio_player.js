@@ -1,8 +1,8 @@
-var player, source, tracklist, playlist, btnPlayPauseAudio, audioTimebar, currentSong, track_dl;
+var audio_player, audio_source, tracklist, playlist, btnPlayPauseAudio, audioTimebar, currentSong, track_dl;
 
-function initAudioPlayer() {
-    player = document.getElementById('audio_player');
-    source = document.getElementById('audio_source');
+function init_AudioPlayer() {
+    audio_player = document.getElementById('audio_player');
+    audio_source = document.getElementById('audio_source');
     tracklist = document.getElementById('tracklist');
     playlist = [];
     btnPlayPauseAudio = document.getElementById('btnPlayPauseAudio');
@@ -19,15 +19,13 @@ function initAudioPlayer() {
     loadTrack(0);
 }
 
-/*
-function onAudioChangeSource(){
-    track_dl.href = player.src;
+function onAudioLoadSource(){
+    track_dl.href = audio_source.src;
 }
-*/
 
 function loadTrack(song){
-    source.src = playlist[song];
-    player.load();
+    audio_source.src = playlist[song];
+    audio_player.load();
     tracklist.focus();
 }
 
@@ -36,55 +34,55 @@ function onTrackSelect(){
 
     audioTimeBar.value = 0;
 
-    source.src = selectedSong.getAttribute('data-value');
+    audio_source.src = selectedSong.getAttribute('data-value');
 
     currentSong = selectedSong.value;
     
-    player.load();
-    player.play();
+    audio_player.load();
+    audio_player.play();
 
     btnPlayPauseAudio.src = "audio/controls/pause.png";
 }
 
 function loadNextTrack(){
     currentSong = ++currentSong < playlist.length ? currentSong : 0;
-    source.src = playlist[currentSong];
+    audio_source.src = playlist[currentSong];
 
     tracklist.value = currentSong;
     tracklist.focus();
     
-    player.load();
+    audio_player.load();
 }
 
 function loadPrevTrack(){
     currentSong = --currentSong > -1 ? currentSong : playlist.length - 1;
-    source.src = playlist[currentSong];
+    audio_source.src = playlist[currentSong];
 
     tracklist.value = currentSong;
     tracklist.focus();
     
-    player.load();
+    audio_player.load();
 }
 
 function onSongEnded(){
     repeatPlaylist = document.getElementById('repeatPlaylist').checked;
-    if (!isPaused()) {
+    if (!isPausedAudio()) {
         if (!repeatPlaylist && currentSong == 2) {
         
         }
         else {
             loadNextTrack();
-            player.play();
+            audio_player.play();
         }
     }
 }
 
 function onAudioPlayPausePressed() {
-    if (player.paused) {
-        player.play();
+    if (audio_player.paused) {
+        audio_player.play();
         btnPlayPauseAudio.src = "audio/controls/pause.png";
     } else {
-        player.pause();
+        audio_player.pause();
         btnPlayPauseAudio.src = "audio/controls/play.png";
     }
 }
@@ -92,72 +90,65 @@ function onAudioPlayPausePressed() {
 function onPrevTrackPressed(){
     loadPrevTrack();
 
-    if (!isPaused()){
-        player.play();
+    if (!isPausedAudio()){
+        audio_player.play();
     }
 }
 
 function onNextTrackPressed(){
     loadNextTrack();
 
-    if (!isPaused()){
-        player.play();
+    if (!isPausedAudio()){
+        audio_player.play();
     }
 
     updateAudioCurrentTime();
 }
 
 function onAudioTimeChange() {
-    player.currentTime = player.duration * (audioTimeBar.value / 100);
+    audio_player.currentTime = audio_player.duration * (audioTimeBar.value / 100);
 }
 
 function updateAudioCurrentTime() {
     var currentTime = document.getElementById('currentAudioTime');
-    
-    currentTime.innerHTML = formatTime(player.currentTime);
+    currentTime.innerHTML = formatTime(audio_player.currentTime);
 }
 
 function updateAudioTotalTime() {
     var totalTime = document.getElementById('totalAudioTime');
-    totalTime.innerHTML = " / " + formatTime(player.duration);
+    totalTime.innerHTML = " / " + formatTime(audio_player.duration);
 }
 
 function onAudioPlayingTimePassed() {
-    audioTimeBar.value = (100 / player.duration) * player.currentTime;
+    audioTimeBar.value = (100 / audio_player.duration) * audio_player.currentTime;
 }
 
 function onAudioTimeBarMouseDown() {
-    if (!isPaused()) {
-        player.pause();
+    if (!isPausedAudio()) {
+        audio_player.pause();
     }
 }
 
 function onAudioTimeBarMouseUp() {
-    if (!isPaused()){ // Sólo se da al play si antes se estaba reproduciendo
-        player.play();
+    if (!isPausedAudio()){ // Sólo se da al play si antes se estaba reproduciendo
+        audio_player.play();
     } 
 }
 
 function onAudioMuteClick() {
-    var player = document.getElementById('audio_player');
-    var btnMuteAudio = document.getElementById('btnMuteAudio');
-
-    if (!player.muted) {
-        player.muted = true;
+    if (!audio_player.muted) {
+        audio_player.muted = true;
         btnMuteAudio.src = "audio/controls/mute.png";
     } else {
-        player.muted = false;
+        audio_player.muted = false;
         btnMuteAudio.src = "audio/controls/speaker.png";
     }
 }
 
 function onAudioVolumeChange(){
-    var player = document.getElementById('audio_player');
-    var audioVolumeBar = document.getElementById('audioVolumeBar');
-
-    player.volume = audioVolumeBar.value;
+    audio_player.volume = audioVolumeBar.value;
 }
 
-function isPaused(){
+function isPausedAudio(){
     return btnPlayPauseAudio.getAttribute('src') == "audio/controls/play.png"; 
 }
