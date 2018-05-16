@@ -237,8 +237,33 @@ p{
 	color:#FFF;	
 	
 	clear:both;
-	
 }
 
+/* EXTRA */
+
+.audio-player tr td{
+	padding: 0px 10px 0px 10px;
+}
+
+.audio-player table {
+	background-color: #1c478e;
+	border-radius: 10px;
+	border: 1px solid black;
+}
+
+.volume-control {
+	width: 75px;
+}
+
+.playlist td{
+	padding: 0;
+	margin: 0;
 
 
+}
+
+.playlist input {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}

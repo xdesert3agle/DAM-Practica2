@@ -1,4 +1,4 @@
-var player, source, tracklist, playlist, btnplayPause, audioTimebar, currentSong, track_dl;
+var player, source, tracklist, playlist, btnplayPause, audioTimebar, currentSong;
 
 function init() {
     player = document.getElementById('audio_player');
@@ -7,7 +7,6 @@ function init() {
     playlist = [];
     btnPlayPause = document.getElementById('btnPlayPause');
     audioTimeBar = document.getElementById('audioTimeBar');
-    track_dl = document.getElementById('track_dl');
 
     // Llenamos el array 'playlist' con las canciones del <select>
     for (var j = 0; j < tracklist.length; j++){
@@ -19,12 +18,6 @@ function init() {
     loadTrack(0);
 }
 
-/*
-function onChangeSource(){
-    track_dl.href = player.src;
-}
-*/
-
 function loadTrack(song){
     source.src = playlist[song];
     player.load();
@@ -33,7 +26,7 @@ function loadTrack(song){
 
 function onTrackSelect(){
     var selectedSong = tracklist.options[tracklist.selectedIndex];
-
+    
     audioTimeBar.value = 0;
 
     source.src = selectedSong.getAttribute('data-value');
