@@ -45,9 +45,9 @@
                         <td>
                             <label for="tracklist"><strong>Canciones</strong></label> <br>
                             <select id="tracklist" size="3" onDblClick="onTrackSelect();">
-                                <option value="0" data-value="audio/tracks/FRIENDS.mp3" selected="selected">FRIENDS</option>
-                                <option value="1" data-value="audio/tracks/Find_Me.mp3">Find Me</option>
-                                <option value="2" data-value="audio/tracks/Chasing_Colors.mp3">Chasing Colors</option>
+                                <option value="0" data-value="audio/tracks/FRIENDS.mp3" data-value-alt="audio/tracks/FRIENDS.ogg" selected="selected">FRIENDS</option>
+                                <option value="1" data-value="audio/tracks/Find_Me.mp3" data-value-alt="audio/tracks/Find_Me.ogg">Find Me</option>
+                                <option value="2" data-value="audio/tracks/Chasing_Colors.mp3" data-value-alt="audio/tracks/Chasing_Colors.ogg">Chasing Colors</option>
                             </select>
                         </td>
                     </tr>
@@ -60,12 +60,13 @@
                 </table>
 
                 <audio id="audio_player" onTimeUpdate="onAudioPlayingTimePassed(); updateAudioCurrentTime();" onEnded="onSongEnded();" onLoadedData="updateAudioTotalTime(); onAudioLoadSource();">
-                    <source id="audio_source" onChange="onAudioChangeSource();" />
+                    <source id="audio_source" />
+                    <source id="alt_source" />
                     Tu navegador no soporta el formato de las canciones.
                     Puedes descargar la canción aquí:
-                    <a href="" id="track_dl" download>Descargar</a>
+                    <a href="" id="track_dl" download>Descargar en .mp3</a>
+                    <a href="" id="alt_track_dl" download>Descargar en .ogg</a>
                 </audio>
-
                 <div class="audio_player">
                     <table>
                         <tr>

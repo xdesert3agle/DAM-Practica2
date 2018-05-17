@@ -1,17 +1,21 @@
-var audio_player, audio_source, tracklist, playlist, btnPlayPauseAudio, audioTimebar, currentSong, track_dl;
+var audio_player, audio_source, alt_audio_source, tracklist, playlist, alt_playlist, btnPlayPauseAudio, audioTimebar, currentSong, track_dl, alt_track_dl;
 
 function init_AudioPlayer() {
     audio_player = document.getElementById('audio_player');
     audio_source = document.getElementById('audio_source');
+    alt_audio_source = document.getElementById('alt_source');
     tracklist = document.getElementById('tracklist');
     playlist = [];
+    alt_playlist = [];
     btnPlayPauseAudio = document.getElementById('btnPlayPauseAudio');
     audioTimeBar = document.getElementById('audioTimeBar');
     track_dl = document.getElementById('track_dl');
+    alt_track_dl = document.getElementById('alt_track_dl');
 
     // Llenamos el array 'playlist' con las canciones del <select>
     for (var j = 0; j < tracklist.length; j++){
         playlist[j] = tracklist.options[j].getAttribute('data-value');
+        alt_playlist[j] = tracklist.options[j].getAttribute('data-value-alt');
     }
     
     // Se precarga la primera canción
@@ -21,6 +25,8 @@ function init_AudioPlayer() {
 
 function loadTrack(song){
     audio_source.src = playlist[song];
+    alt_audio_source.src = alt_playlist[song];
+
     audio_player.load();
     tracklist.focus();
 }
@@ -31,6 +37,7 @@ function onTrackSelect(){
     audioTimeBar.value = 0;
 
     audio_source.src = selectedSong.getAttribute('data-value');
+    alt_audio_source.src = selectedSong.getAttribute('data-value-alt');
 
     currentSong = selectedSong.value;
     
@@ -43,6 +50,7 @@ function onTrackSelect(){
 function loadNextTrack(){
     currentSong = ++currentSong < playlist.length ? currentSong : 0;
     audio_source.src = playlist[currentSong];
+    alt_audio_source.src = alt_playlist[currentSong];
 
     tracklist.value = currentSong;
     tracklist.focus();
@@ -53,6 +61,7 @@ function loadNextTrack(){
 function loadPrevTrack(){
     currentSong = --currentSong > -1 ? currentSong : playlist.length - 1;
     audio_source.src = playlist[currentSong];
+    alt_audio_source.src = alt_playlist[currentSong];
 
     tracklist.value = currentSong;
     tracklist.focus();
@@ -147,6 +156,7 @@ function onAudioVolumeChange(){
 
 function onAudioLoadSource(){
     track_dl.href = audio_source.src;
+    alt_track_dl.href = alt_audio_source.src;
 }
 
 function isPausedAudio(){
