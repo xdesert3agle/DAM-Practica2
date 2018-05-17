@@ -37,9 +37,13 @@
         </div>
     
         <div id="section">
+
+            <!-- APARTADO 1: AUDIO -->
             <div id="apartado1" class="content">
                 <h2>Apartado 1</h2>
                 <h3>Audio</h3>
+
+                <!-- Lista de canciones -->
                 <table class="audio_playlist">
                     <tr>
                         <td>
@@ -59,14 +63,17 @@
                     </tr>
                 </table>
 
+                <!-- Reproductor de audio -->
                 <audio id="audio_player" onTimeUpdate="onAudioPlayingTimePassed(); updateAudioCurrentTime();" onEnded="onSongEnded();" onLoadedData="updateAudioTotalTime(); onAudioLoadSource();">
                     <source id="audio_source" />
                     <source id="alt_source" />
                     Tu navegador no soporta el formato de las canciones.
-                    Puedes descargar la canción aquí:
+                    Puedes descargar la canción que has seleccionado aquí:
                     <a href="" id="track_dl" download>Descargar en .mp3</a>
                     <a href="" id="alt_track_dl" download>Descargar en .ogg</a>
                 </audio>
+
+                <!-- Controles personalizados del reproductor de audio -->
                 <div class="audio_player">
                     <table>
                         <tr>
@@ -95,81 +102,101 @@
                     </table>
                 </div>
             </div>
+            
+            <!-- APARTADO 2: VÍDEO -->
             <div id="apartado2" class="content">
                 <h2>Apartado 2</h2>
                 <h3>Video</h3>
                 
+                <!-- Catálogo de vídeos -->
                 <table class="video_playlist" id="video_catalog">
                     <tr>
                         <td>
                             <div class="dual-photo">
-                                <img src="images/guacamole.jpg" data-value="video/videos/fresh_guacamole.mp4" alt="Fresh Guacamole by PES" onDblClick="onVideoSelect(this);">
-                                <img src="images/submarine.jpg" data-value="video/videos/submarine_sandwich.mp4" alt="Fresh Guacamole by PES" onDblClick="onVideoSelect(this);">
+                                <img src="images/guacamole.jpg" data-value="video/videos/fresh_guacamole.mp4" data-value-alt="video/videos/fresh_guacamole.webm" alt="Fresh Guacamole by PES" onDblClick="onVideoSelect(this);">
+                                <img src="images/submarine.jpg" data-value="video/videos/submarine_sandwich.mp4" data-value-alt="video/videos/submarine_sandwich.webm" alt="Fresh Guacamole by PES" onDblClick="onVideoSelect(this);">
                             </div>
                         </td>
                     </tr>
                 </table>
 
+                <!-- Reproductor de vídeo -->
                 <div class="video_player">
                     <table>
                         <tr>
                             <td colspan="9">
-                                <video id="video_player" class="video_frame" onTimeUpdate="onVideoPlayingTimePassed(); updateVideoCurrentTime();" onEnded="onVideoEnded();" onLoadedData="updateVideoTotalTime(); onVideoLoadSource();" onClick="onVideoPlayPausePressed();" onDblClick="onFullscreenPressed();" onPlay="setInterval('onBWPRessed()', 33);">
-                                    <source id="video_source" onChange="onVideoChangeSource();" />
+                                <video id="video_player" class="video_frame" onTimeUpdate="onVideoPlayingTimePassed(); updateVideoCurrentTime();" onLoadedData="updateVideoTotalTime(); onVideoLoadSource();" onClick="onVideoPlayPausePressed();" onDblClick="onFullscreenPressed();" onPlay="setInterval('onBWPressed()', 33);">
+                                    <source id="video_source" />
+                                    <source id="alt_video_source" />
                                     Tu navegador no soporta el formato de los vídeos.
-                                    Puedes descargar el vídeo aquí:
-                                    <a href="" id="video_dl" download>Descargar</a>
+                                    Puedes descargar el vídeo que has seleccionado aquí:
+                                    <a href="" id="video_dl" download>Descargar en .mp4</a>
+                                    <a href="" id="alt_video_dl" download>Descargar en .webm</a>
                                 </video>
                                 <br>
                             </td>
                         </tr>
+
+                        <!-- Controles personalizados del reproductor de vídeo -->
                         <tr>
                             <td colspan="9">
                                 <input type="range" id="videoTimeBar" value="0" onInput="onVideoTimeChange();" onChange="onVideoTimeChange();" onMouseUp="onVideoTimeBarMouseUp();">
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td> <!-- Botón vídeo anterior -->
                                 <img src="video/controls/back.png" id="btnPrevVideo" alt="Previous video" onClick="onPrevVideoPressed();"/>
                             </td>
-                            <td>
+                            <td> <!-- Botón play & pausa -->
                                 <img src="video/controls/play.png" id="btnPlayPauseVideo" alt="Play/Pause button" onClick="onVideoPlayPausePressed();"/>
                             </td>
-                            <td>
+                            <td> <!-- Botón de avance rápido (fast-worward) -->
                                 <img src="video/controls/fast-forward.png" id="btnFastForwardVideo" alt="Fast forward" onClick="onFastForwardPressed();"/>
                             </td>
-                            <td>
+                            <td> <!-- Botón de vídeo siguiente -->
                                 <img src="video/controls/next.png" id="btnNextVideo" alt="Next video" onClick="onNextVideoPressed();"/>
                             </td>
-                            <td>
+                            <td> <!-- Contador de tiempo (Tiempo actual / Duración total) -->
                                 <p style="display: inline;"><span id="currentVideoTime">00:00</span><span id="totalVideoTime"> / 00:00</span></p>
                             </td>
-                            <td>
+                            <td> <!-- Botón de mute -->
                                 <img src="video/controls/speaker.png" id="btnVideoMute" alt="Mute audio" onClick="onVideoMuteClick();"/>
                             </td>
-                            <td>
+                            <td> <!-- Slider de control de volumen -->
                                 <input type="range" class="video_volumeControl" id="videoVolumeBar" value="1" min="0" max="1" step="0.05" onChange="onVideoVolumeChange();">
                             </td>
-                            <td>
+                            <td> <!-- Botón de pantalla completa -->
                                 <img src="video/controls/expand.png" id="btnFullscreen" alt="Fullscreen" onClick="onFullscreenPressed();"/>
                             </td>
-                            <td>
+                            <td> <!-- Botón de screenshot para el apartado 5 -->
                                 <img src="canvas/controls/camera.png" id="btnCamera" alt="screenshot" onClick="onScreenshotPressed();"/>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
+
+            <!-- APARTADO 3: CANVAS -->
             <div id="apartado3" class="content">
                 <h2>Apartado 3</h2>
                 <h3>Canvas</h3>
+                
+                <!-- Canvas para los requerimientos (rectángulo, arco, línea...)  -->
                 <canvas id="canvas" width="650" height="380"></canvas>
+
+                <!-- Imagen oculta para usarla en la siguiente línea -->
                 <img src="images/multimedia.jpeg" id="canvasImg" width="0" height="0" />
+                
+                <!-- Canvas para la imagen en movimiento -->
                 <canvas id="canvas2" width="650" height="380"></canvas>
             </div>
+
+            <!-- APARTADO 4: SVG -->
             <div id="apartado4" class="content">
                 <h2>Apartado 4</h2>
                 <h3>SVG</h3>
+
+                <!-- Elemento SVG, contenedor de todos los demás elementos visuales -->
                 <svg width="670" height="400" id="svg">
                     <rect width="250" height="100" x="0" y="0" fill="#1c478e"/>
                     <path d="M 300, 100 a90, 80 100 1, 1 170, 0" stroke="#1c478e" fill="transparent" stroke-width="5"></path>
@@ -182,26 +209,36 @@
                         </linearGradient>
                     </defs>
                     <rect width="250" height="100" x="0" y="200" fill="url(#grad1)"/>
-                    <img src="images/nasa.svg" alt="nasa logo"/>
+                    <img src="images/nasa.svg" alt="nasa logo"/>    
                 </svg>
             </div>
+
+            <!-- APARTADO 5: MANIPULACIÓN DE VIDEO CON CANVAS Y SVG -->
             <div id="apartado5" class="content">
                 <h2>Apartado 5</h2>
                 <h3>Manipulación de vídeo con Canvas y SVG</h3>
+
+                <!-- Apartado a. Captura de un fotograma del vídeo -->
                 <h3>a) Captura de fotograma desde vídeo</h3>
                 <p>Cuando hagas una captura con el reproductor de vídeo se mostrará aquí.</p>
-                <canvas id="screenshotCanvas" width="650" height="380"></canvas>
+                <canvas id="screenshotCanvas" width="650" height="366"></canvas>
 
+                <!-- Apartado b. Reproductor de vídeo en escala de grises.
+                     Nota: Esto sólo funciona en Mozilla Firefox, en los demás navegadores se "reproducirá" el vídeo con color. -->
                 <h3>b) Reproductor de vídeo en escala de grises (sólo en Firefox)</h3>
-                <canvas id="RGBCanvas" width="650" height="500" style="display: none"></canvas>
+                <canvas id="RGBCanvas" width="650" height="366" style="display: none"></canvas>
                 <br>
                 <div class="centered">
-                    <button type="button" onclick="onBWPRessed(); displayBWVideo();">Ver vídeo</button>
+                    <button type="button" onclick="onBWPressed(); displayBWVideo();">Ver vídeo</button>
                 </div>
+
+                <!-- Apartado c. Máscara con SVG.
+                     Nota: Una vez más, este efecto sólo funciona en Mozilla Firefox. (En Chrome no sale y en Edge
+                     se reproduce el vídeo normalmente) -->
                 <h3>c) Filtros SVG</h3>
                 <svg>
                     <mask id="vmask">
-                    <text x="10" y="300" font-size="220" font-family="Verdana" font-weight="bold" fill="#fff">SVG</text>
+                    <text x="0" y="250" font-size="230" font-family="Verdana" font-weight="bold" fill="#fff">SVG</text>
                     </mask>
                 </svg>
                 <video id="video_mask" autoloop controls width="650" height="500">
@@ -209,9 +246,11 @@
                     <source src="video/videos/elephants-dream-medium.webm">
                 </video>
             </div>
+
+            <!-- APARTADO 6: VÍDEO CON SUBTÍTULOS -->
             <div id="apartado6" class="content">
                 <h2>Apartado 6</h2>
-                <h3>Vídeo con subtitulos (sólo en Firefox)</h3>
+                <h3>Vídeo con subtítulos (se muestra la opción en Chrome y en Edge pero no funciona; sólo es completamente funcional en Firefox)</h3>
                 <video autobuffer autoloop loop controls class="full-width">
                     <source src="video/videos/elephants-dream-medium.mp4">
                     <source src="video/videos/elephants-dream-medium.webv">

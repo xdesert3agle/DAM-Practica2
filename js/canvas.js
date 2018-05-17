@@ -1,3 +1,4 @@
+// Dibuja todos los elementos del primer canvas
 function drawCanvas(){
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
@@ -37,6 +38,7 @@ function drawCanvas(){
 var right = true;
 var canvas, ctx, pos_x = 0, img;
 
+// Imagen en movimiento dentro del canvas
 function movingCanvas(){
     canvas = document.getElementById("canvas2");
     ctx = canvas.getContext("2d");
@@ -69,6 +71,7 @@ function movingCanvas(){
     , 2);
 }
 
+// Resultado de la screenshot del vídeo
 function onScreenshotPressed() {
     var screenshotCanvas = document.getElementById("screenshotCanvas");
     var video_player = document.getElementById("video_player");
@@ -77,7 +80,8 @@ function onScreenshotPressed() {
     ctx.drawImage(video_player, 0, 0, screenshotCanvas.width, screenshotCanvas.height);
 }
 
-function onBWPRessed(){
+// Transforma, frame a frame, el vídeo a escala de grises
+function onBWPressed(){
     var RGBCanvas = document.getElementById("RGBCanvas");
     var video_player = document.getElementById("video_player");
     var rgbCtx = RGBCanvas.getContext("2d");
@@ -100,6 +104,7 @@ function onBWPRessed(){
     }
 }
 
+// Muestra u oculta el vídeo en escala de grises
 function displayBWVideo(){
     var bwCanvas = document.getElementById('RGBCanvas');
 
