@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/extra.css" />
-    <script src="js/util.js" type="text/javascript"></script>
     <script src="js/audio_player.js" type="text/javascript"></script>
     <script src="js/video_player.js" type="text/javascript"></script>
     <script src="js/canvas.js" type="text/javascript"></script>
+    <script src="js/util.js" type="text/javascript"></script>
     <title>Inicio · Practica 2 Diseño de Aplicaciones Multimedia HTML5</title>
 </head>
-<body onLoad="init_AudioPlayer(); init_VideoPlayer(); drawCanvas(); movingCanvas();">
+<body onLoad="init_AudioPlayer(); init_VideoPlayer(); drawCanvas(); movingCanvas(); initBWCanvas();">
     <div id="container">
         <div id="header">
             <h1><span class="blue-text">Diseño</span> de aplicaciones multimedia</h1>
@@ -31,6 +31,8 @@
                 <li><a href="#apartado2">Video</a></li>
                 <li><a href="#apartado3">Canvas</a></li>
                 <li><a href="#apartado4">SVG</a></li>
+                <li><a href="#apartado5">Manipulación de vídeo con Canvas y SVG</a></li>
+                <li><a href="#apartado6">Vídeo con subtitulos</a></li>
             </ul>
         </div>
     
@@ -95,7 +97,7 @@
             <div id="apartado2" class="content">
                 <h2>Apartado 2</h2>
                 <h3>Video</h3>
-
+                
                 <table class="video_playlist">
                     <tr>
                         <td>
@@ -108,11 +110,11 @@
                     </tr>
                 </table>
 
-                <div class="video_player">
+                <div class="video_player" style="">
                     <table>
                         <tr>
-                            <td colspan="8">
-                                <video id="video_player" class="video_frame" onTimeUpdate="onVideoPlayingTimePassed(); updateVideoCurrentTime();" onEnded="onVideoEnded();" onLoadedData="updateVideoTotalTime(); onVideoLoadSource();" onClick="onVideoPlayPausePressed();" onDblClick="onFullscreenPressed();">
+                            <td colspan="9">
+                                <video id="video_player" class="video_frame" onTimeUpdate="onVideoPlayingTimePassed(); updateVideoCurrentTime();" onEnded="onVideoEnded();" onLoadedData="updateVideoTotalTime(); onVideoLoadSource();" onClick="onVideoPlayPausePressed();" onDblClick="onFullscreenPressed();" onPlay="setInterval('onBWPRessed()', 33);">
                                     <source id="video_source" onChange="onVideoChangeSource();" />
                                     Tu navegador no soporta el formato de los vídeos.
                                     Puedes descargar el vídeo aquí:
@@ -122,7 +124,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="8">
+                            <td colspan="9">
                                 <input type="range" id="videoTimeBar" value="0" onInput="onVideoTimeChange();" onChange="onVideoTimeChange();" onMouseUp="onVideoTimeBarMouseUp();">
                             </td>
                         </tr>
@@ -150,6 +152,9 @@
                             </td>
                             <td>
                                 <img src="video/controls/expand.png" id="btnFullscreen" alt="Fullscreen" onClick="onFullscreenPressed();"/>
+                            </td>
+                            <td>
+                                <img src="canvas/controls/camera.png" id="btnCamera" alt="screenshot" onClick="onScreenshotPressed();"/>
                             </td>
                         </tr>
                     </table>
@@ -180,20 +185,37 @@
                     <img src="images/nasa.svg" alt="nasa logo"/>
                 </svg>
             </div>
-            <div id="apartado5.a" class="content">
-                <h2>Apartado 5.</h2>
+            <div id="apartado5" class="content">
+                <h2>Apartado 5</h2>
+                <h3>Manipulación de vídeo con Canvas y SVG</h3>
                 <h3>a</h3>
+                <canvas id="screenshotCanvas" width="650" height="380"></canvas>
+
+                <h3>b</h3>
+                <canvas id="RGBCanvas" width="650" height="500" style="display: none"></canvas>
+                <button type="button" onclick="displayBWVideo();">Ver vídeo en blanco y negro</button>
+
+                <h3>c</h3>
                 <svg>
                     <mask id="vmask">
                     <text x="10" y="300" font-size="220" font-family="Verdana" font-weight="bold" fill="#fff">SVG</text>
                     </mask>
                 </svg>
-                <video id="video_mask"  autoloop controls width="650" height="500">
+                <video id="video_mask" autoloop controls width="650" height="500">
                     <source src="video/videos/elephants-dream-medium.mp4">
                     <source src="video/videos/elephants-dream-medium.webm">
                 </video>
-
-                <h3>b</h3>
+            </div>
+            <div id="apartado6" class="content">
+                <h2>Apartado 6</h2>
+                <h3>Vídeo con subtitulos</h3>
+                <video autobuffer autoloop loop controls width="650" height="500">
+                    <source src="video/videos/elephants-dream-medium.mp4">
+                    <source src="video/videos/elephants-dream-medium.webv">
+                    <track src="video/videos/elephants-dream-chapters-en.vtt" kind="subtitles" srclang="en" label="English" default>
+                    <track src="video/videos/elephants-dream-chapters-sp.vtt" kind="subtitles" srclang="sp" label="Spanish" >
+                    <track src="video/videos/elephants-dream-subtitles-de.vtt" kind="subtitles" srclang="de" label="German" >
+                </video>
             </div>
     </div>
 

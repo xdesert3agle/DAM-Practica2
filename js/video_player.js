@@ -17,6 +17,10 @@ function init_VideoPlayer() {
     // Se precarga el primer video
     currentVideo = 0;
     loadVideo(0);
+
+    video_player.addEventListener('play', function() {
+        setInterval("onBWPRessed()", 33);
+    }, false);
 }
 
 function loadVideo(video){

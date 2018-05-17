@@ -34,12 +34,12 @@ function drawCanvas(){
     ctx.drawImage(image, 275, 170, 303, 118)
 }
 
-var forward = true;
-var cnv, ctx, pos_x = 0, img;
+var right = true;
+var canvas, ctx, pos_x = 0, img;
 
 function movingCanvas(){
-    cnv = document.getElementById("canvas2");
-    ctx = cnv.getContext("2d");
+    canvas = document.getElementById("canvas2");
+    ctx = canvas.getContext("2d");
 
     img = document.getElementById("canvasImg");
 
@@ -48,23 +48,60 @@ function movingCanvas(){
             ctx.clearRect(0, 0, 650, 400);
             ctx.drawImage(img, pos_x, 0);
 
-            if(forward){
-                if(pos_x == cnv.width){
-                    pos_x -= 1;
-                    forward = false;
+            if(right){
+                if(pos_x == canvas.width){
+                    pos_x--;
+                    right = false;
                 } else {
-                    pos_x += 1;
+                    pos_x++;
                 }
             }   
-            if(!forward){
+            if(!right){
                 if(pos_x == 0){
-                    pos_x += 1;
-                    forward = true;
+                    pos_x++;
+                    right = true;
                 } else {
-                    pos_x -= 1;
+                    pos_x--;
                 } 
             }
             movingCanvas();
         }
     , 2);
+}
+
+function onScreenshotPressed() {
+    var screenshotCanvas = document.getElementById("screenshotCanvas");
+    var video_player = document.getElementById("video_player");
+    var ctx = screenshotCanvas.getContext("2d");
+    
+    ctx.drawImage(video_player, 0, 0, screenshotCanvas.width, screenshotCanvas.height);
+}
+
+function onBWPRessed(){
+    var RGBCanvas = document.getElementById("RGBCanvas");
+    var video_player = document.getElementById("video_player");
+    var rgbCtx = RGBCanvas.getContext("2d");
+    rgbCtx.drawImage(video_player, 0, 0, RGBCanvas.width, RGBCanvas.height);
+
+    var pixel = rgbCtx.getImageData(0, 0, RGBCanvas.width, RGBCanvas.height);
+    var data = pixel.data;
+    
+    for (var i = 0; i < data.length; i += 4) {
+        var m = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        data[i] = m;
+        data[i + 1] = m;
+        data[i + 2] = m;
+    }
+    
+    rgbCtx.putImageData(pixel, 0, 0);
+}
+
+function displayBWVideo(){
+    var bwCanvas = document.getElementById('RGBCanvas');
+
+    if (bwCanvas.style.display == "block"){
+        bwCanvas.style.display = "none";
+    } else {
+        bwCanvas.style.display = "block";
+    }
 }
