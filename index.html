@@ -10,7 +10,7 @@
     <script src="js/util.js" type="text/javascript"></script>
     <title>Inicio · Practica 2 Diseño de Aplicaciones Multimedia HTML5</title>
 </head>
-<body onLoad="init_AudioPlayer(); init_VideoPlayer(); drawCanvas(); movingCanvas(); initBWCanvas();">
+<body onLoad="init_AudioPlayer(); init_VideoPlayer(); drawCanvas(); movingCanvas();">
     <div id="container">
         <div id="header">
             <h1><span class="blue-text">Diseño</span> de aplicaciones multimedia</h1>
@@ -98,19 +98,18 @@
                 <h2>Apartado 2</h2>
                 <h3>Video</h3>
                 
-                <table class="video_playlist">
+                <table class="video_playlist" id="video_catalog">
                     <tr>
                         <td>
-                            <label for="video_catalog"><strong>Vídeos</strong></label> <br>
-                            <select id="video_catalog" size="3" onDblClick="onVideoSelect();">
-                                <option value="0" data-value="video/videos/elephants-dream-medium.mp4" selected="selected">Versión MP4</option>
-                                <option value="1" data-value="video/videos/elephants-dream-medium.webm">Versión WEBM</option>
-                            </select>
+                            <div class="dual-photo">
+                                <img src="images/guacamole.jpg" data-value="video/videos/fresh_guacamole.mp4" alt="Fresh Guacamole by PES" onDblClick="onVideoSelect(this);">
+                                <img src="images/submarine.jpg" data-value="video/videos/submarine_sandwich.mp4" alt="Fresh Guacamole by PES" onDblClick="onVideoSelect(this);">
+                            </div>
                         </td>
                     </tr>
                 </table>
 
-                <div class="video_player" style="">
+                <div class="video_player">
                     <table>
                         <tr>
                             <td colspan="9">
@@ -188,14 +187,17 @@
             <div id="apartado5" class="content">
                 <h2>Apartado 5</h2>
                 <h3>Manipulación de vídeo con Canvas y SVG</h3>
-                <h3>a</h3>
+                <h3>a) Captura de fotograma desde vídeo</h3>
+                <p>Cuando hagas una captura con el reproductor de vídeo se mostrará aquí.</p>
                 <canvas id="screenshotCanvas" width="650" height="380"></canvas>
 
-                <h3>b</h3>
+                <h3>b) Reproductor de vídeo en escala de grises (sólo en Firefox)</h3>
                 <canvas id="RGBCanvas" width="650" height="500" style="display: none"></canvas>
-                <button type="button" onclick="displayBWVideo();">Ver vídeo en blanco y negro</button>
-
-                <h3>c</h3>
+                <br>
+                <div class="centered">
+                    <button type="button" onclick="onBWPRessed(); displayBWVideo();">Ver vídeo</button>
+                </div>
+                <h3>c) Filtros SVG</h3>
                 <svg>
                     <mask id="vmask">
                     <text x="10" y="300" font-size="220" font-family="Verdana" font-weight="bold" fill="#fff">SVG</text>
@@ -208,8 +210,8 @@
             </div>
             <div id="apartado6" class="content">
                 <h2>Apartado 6</h2>
-                <h3>Vídeo con subtitulos</h3>
-                <video autobuffer autoloop loop controls width="650" height="500">
+                <h3>Vídeo con subtitulos (sólo en Firefox)</h3>
+                <video autobuffer autoloop loop controls class="full-width">
                     <source src="video/videos/elephants-dream-medium.mp4">
                     <source src="video/videos/elephants-dream-medium.webv">
                     <track src="video/videos/elephants-dream-chapters-en.vtt" kind="subtitles" srclang="en" label="English" default>
@@ -217,8 +219,7 @@
                     <track src="video/videos/elephants-dream-subtitles-de.vtt" kind="subtitles" srclang="de" label="German" >
                 </video>
             </div>
-    </div>
-
+        </div>
     <div id="footer">
         Diseño de aplicaciones multimedia 2017/2018
     </div>

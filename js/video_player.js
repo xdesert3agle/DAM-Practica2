@@ -4,23 +4,14 @@ function init_VideoPlayer() {
     video_player = document.getElementById('video_player');
     video_source = document.getElementById('video_source');
     video_catalog = document.getElementById('video_catalog');
-    video_playlist = [];
+    video_playlist = ["video/videos/fresh_guacamole.mp4", "video/videos/submarine_sandwich.mp4"];
     btnPlayPauseVideo = document.getElementById('btnPlayPauseVideo');
     videoTimeBar = document.getElementById('videoTimeBar');
     video_dl = document.getElementById('video_dl');
-
-    // Llenamos el array 'video_playlist' con los vídeos del <select>
-    for (var j = 0; j < video_catalog.length; j++){
-        video_playlist[j] = video_catalog.options[j].getAttribute('data-value');
-    }
     
     // Se precarga el primer video
     currentVideo = 0;
     loadVideo(0);
-
-    video_player.addEventListener('play', function() {
-        setInterval("onBWPRessed()", 33);
-    }, false);
 }
 
 function loadVideo(video){
@@ -29,8 +20,8 @@ function loadVideo(video){
     video_catalog.focus();
 }
 
-function onVideoSelect(){
-    var selectedVideo = video_catalog.options[video_catalog.selectedIndex];
+function onVideoSelect(element){
+    var selectedVideo = element;
 
     videoTimeBar.value = 0;
 

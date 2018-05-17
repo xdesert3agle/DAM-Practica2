@@ -81,19 +81,23 @@ function onBWPRessed(){
     var RGBCanvas = document.getElementById("RGBCanvas");
     var video_player = document.getElementById("video_player");
     var rgbCtx = RGBCanvas.getContext("2d");
+    
     rgbCtx.drawImage(video_player, 0, 0, RGBCanvas.width, RGBCanvas.height);
 
-    var pixel = rgbCtx.getImageData(0, 0, RGBCanvas.width, RGBCanvas.height);
-    var data = pixel.data;
-    
-    for (var i = 0; i < data.length; i += 4) {
-        var m = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        data[i] = m;
-        data[i + 1] = m;
-        data[i + 2] = m;
+    try {
+        var pixel = rgbCtx.getImageData(0, 0, RGBCanvas.width, RGBCanvas.height);
+        var data = pixel.data;
+        
+        for (var i = 0; i < data.length; i += 4) {
+            var m = (data[i] + data[i + 1] + data[i + 2]) / 3;
+            data[i] = m;
+            data[i + 1] = m;
+            data[i + 2] = m;
+        }
+        rgbCtx.putImageData(pixel, 0, 0);
+    } catch {
+
     }
-    
-    rgbCtx.putImageData(pixel, 0, 0);
 }
 
 function displayBWVideo(){
