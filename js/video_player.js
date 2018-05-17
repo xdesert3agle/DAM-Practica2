@@ -149,6 +149,14 @@ function onVideoLoadSource(){
     video_dl.href = video_source.src;
 }
 
+function onFastForwardPressed(){
+    if (video_player.playbackRate == 1.0) {
+        video_player.playbackRate = 2.0;
+    } else {
+        video_player.playbackRate = 1.0;
+    } 
+}
+
 function isPausedVideo(){
     return btnPlayPauseVideo.getAttribute('src') == "video/controls/play.png"; 
 }
